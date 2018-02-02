@@ -1,0 +1,10 @@
+{
+  "name": "magento2-helper",
+  "version": "1.0.0",
+  "description": "Command-line tool meant to simplify and streamline the Magento 2 development process",
+  "main": "index.js",
+  "repository": "https://github.com/JTessmer/magento2-helper.git",
+  "author": "Jesse Tessmer <jesse.tessmer@gmail.com>",
+  "license": "GPL-3.0",
+  "bin": "./src/index.js"
+}
