@@ -12,12 +12,22 @@ function writeConfigData(data = {}) {
 	return data;
 }
 
+// Resets all configurations to default
+function setDefaults() {
+	writeConfigData({
+		'hasSetDefaults':	true,
+		'magentoBin':		'php bin/magento',
+		'jsPackageManager':	'npm',
+		'defaultTheme':		null
+	});
+}
+
 // Loads the config file data as a JS object;
 function readConfigData() {
 
 	// If the file doesn't exist, we'll create it
 	if ( !fs.existsSync(filePath) ) {
-		writeConfigData();
+		setDefaults();
 	}
 
 	return JSON.parse(fs.readFileSync(filePath) || '{}');
@@ -25,6 +35,7 @@ function readConfigData() {
 
 
 const config = {
+	setDefaults,
 
 	get: function(key) {
 		const config = readConfigData();
