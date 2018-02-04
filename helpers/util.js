@@ -1,9 +1,16 @@
+'use strict';
+
 const { spawnSync } = require('child_process');
 const config = require('./config');
 const appMsg = require('./appMsg');
 
 // Executes the given command and returns the resulting output
 function execCommand(command, args) {
+
+	// Ensure supplied arguments are formatted as an array of strings
+	if (typeof args !== 'object') {
+		args = args.toString().split(' ');
+	}
 
 	const result = spawnSync(command, args, {
 		stdio: 'inherit'
@@ -28,6 +35,7 @@ function execCommand(command, args) {
 }
 
 module.exports = {
+	execCommand,
 	withMagento: function(args) {
 		return execCommand(config.get('magentoBin'), args);
 	},

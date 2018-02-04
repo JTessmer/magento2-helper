@@ -18,6 +18,8 @@ function setDefaults() {
 		'hasSetDefaults':	true,
 		'magentoBin':		'php bin/magento',
 		'jsPackageManager':	'npm',
+		'taskRunner':		'grunt',
+		'defaultVendor':	null,
 		'defaultTheme':		null
 	});
 }

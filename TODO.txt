@@ -1,9 +1,2 @@
 # Incorporate m2build (grunt handling) into app?
 # Include a manual in addition to (or instead of) '--help': https://docs.npmjs.com/files/package.json#man
-# Include -v to print version -- require('./package.json').version
-# Commands registry should include a description of the command, along with examples / argument options
-## When user uses the -help command, loop through the commands and show the command + description values
-# Give a description to each module so that it can be shown on the -help output
-
-# Long Term:
-## Allow grouping & ordering of commands, so that they're shown under separate headings

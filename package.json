@@ -6,7 +6,9 @@
   "repository": "https://github.com/JTessmer/magento2-helper.git",
   "author": "Jesse Tessmer <jesse.tessmer@gmail.com>",
   "license": "GPL-3.0",
-  "bin": "./src/index.js",
+  "bin": {
+    "m2": "./index.js"
+  },
   "engines": {
     "node" : ">=6.4.0"
   },
