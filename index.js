@@ -16,9 +16,13 @@ if ( !config.get('hasSetDefaults') ) {
 }
 
 // Ensure the user is in their M2 Root directory
-if ( !fs.existsSync( path.join(__dirname, 'bin', 'magento') ) ) {
-	// appMsg.error('* Magento 2 Helper must be executed from the root directory of your Magento 2 installation');
-	// return;
+// We can ignore this in debug mode
+if (
+	!config.get('debugMode') &&
+	!fs.existsSync( path.join(__dirname, 'bin', 'magento') )
+) {
+	appMsg.error('* Magento 2 Helper must be executed from the root directory of your Magento 2 installation');
+	return;
 }
 
 // Allow including modules using the root directory as the base

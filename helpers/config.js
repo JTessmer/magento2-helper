@@ -15,6 +15,7 @@ function writeConfigData(data = {}) {
 // Resets all configurations to default
 function setDefaults() {
 	writeConfigData({
+		'debugMode':		false,
 		'hasSetDefaults':	true,
 		'magentoBin':		'php bin/magento',
 		'jsPackageManager':	'npm',
