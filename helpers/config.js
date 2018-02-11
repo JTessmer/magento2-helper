@@ -1,28 +1,38 @@
 'use strict';
 
+const DEFAULT_CONFIG = {
+	debugMode:			false,
+	magentoBin:			'php bin/magento',
+	jsPackageManager:	'npm',
+	taskRunner:			'grunt',
+	defaultVendor:		null,
+	defaultTheme:		null,
+	modules: [
+		'./modules/grunt/exec',
+		'./modules/grunt/less',
+		'./modules/grunt/exec-less',
+		'./modules/grunt/setup'
+	]
+};
+
 const fs = require('fs'),
 	path = require('path');
 
 const filePath = path.join( (process.env.HOME || process.env.USERPROFILE), '.m2helper' );
 
+
 // Writes the given data to the config file
 function writeConfigData(data = {}) {
-	fs.writeFileSync(filePath, JSON.stringify(data) );
+	fs.writeFileSync(filePath, JSON.stringify(data, null, '\t') );
 
 	return data;
 }
 
 // Resets all configurations to default
 function setDefaults() {
-	writeConfigData({
-		'debugMode':		false,
-		'hasSetDefaults':	true,
-		'magentoBin':		'php bin/magento',
-		'jsPackageManager':	'npm',
-		'taskRunner':		'grunt',
-		'defaultVendor':	null,
-		'defaultTheme':		null
-	});
+	writeConfigData(DEFAULT_CONFIG);
+
+	return true;
 }
 
 // Loads the config file data as a JS object;
@@ -40,35 +50,48 @@ function readConfigData() {
 const config = {
 	setDefaults,
 
-	get: function(key) {
-		const config = readConfigData();
-
-		if (!key) {
-			return config;
-		} else if (key in config) {
-			return config[key];
-		} else {
-			return undefined;
-		}
+    // Checks for the presence of a config file; creates it with defaults if absent
+	ensureConfigFileExists: function() {
+		return (fs.existsSync(filePath) ? false : setDefaults());
 	},
 
-	set: function(key, value) {
+	// Retrieves the data for the given key
+	get: function(key) {
+		if (!key) {
+			throw new Error('get() called without a key!');
+		}
+
 		const config = readConfigData();
 
-		const newConfig = {
+		return config[key];
+	},
+
+    // Sets the given key to the supplied value
+	set: function(key, value) {
+		if (!key || !value) {
+			throw new Error('set() called with insufficient arguments!');
+		}
+
+		const config = readConfigData();
+
+		return writeConfigData({
 			...config,
 			[key]: value
-		};
-
-		return writeConfigData(newConfig);
+		});
 	},
 
-	unset: function(key) {
+	// Resets the given key to its default value
+	reset: function(key) {
+		if (!key) {
+			throw new Error('reset() called without a key!');
+		}
+
 		const config = readConfigData();
 
-		delete config[key];
-
-		return writeConfigData(config);
+		return writeConfigData({
+			...config,
+			[key]: DEFAULT_CONFIG[key]
+		});
 	}
 };
 

@@ -18,8 +18,8 @@ module.exports = {
 			})
 			.option('all', {
 				alias: 'a',
-				'describe': 'Compile all themes',
-				'default': false
+				describe: 'Compile all themes',
+				default: false
 			})
 			.example('$0 l -a', '=> grunt less [all themes]')
 			.example('$0 l mytheme', '=> grunt less:mytheme');

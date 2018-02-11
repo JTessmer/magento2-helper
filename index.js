@@ -10,10 +10,8 @@ const { withMagento } = require('./helpers/util');
 const appMsg = require('./helpers/appMsg');
 const config = require('./helpers/config');
 
-// Make sure we have configurations set
-if ( !config.get('hasSetDefaults') ) {
-	config.setDefaults();
-}
+// Create config file with defaults if none exists
+config.ensureConfigFileExists();
 
 // Ensure the user is in their M2 Root directory
 // We can ignore this in debug mode
@@ -32,17 +30,20 @@ global.m2Require = function(name) {
 
 
 //===== Command Handling =====//
-const argv = yargs
-	.usage('Usage: $0 [command]')
 
-	//----- Grunt Commands -----//
-	.command( require('./modules/grunt/exec') )
-	.command( require('./modules/grunt/less') )
-	.command( require('./modules/grunt/exec-less') )
+const commandModules = config.get('modules');
+// Load configured modules
+if (commandModules) {
+	commandModules.forEach( (module) => {
+		yargs.command( require(module) );
+	});
+}
 
-	//----- Unhandled Commands -----//
-	.command('* [command]', 'Send command to Magento', () => {}, (argv) => {
-		withMagento(argv._);
-	})
-	.help()
-	.argv;
+//----- Unhandled Commands -----//
+yargs.command('* [command]', 'Send command to Magento', () => {}, (argv) => {
+	withMagento(argv._);
+});
+
+yargs.usage('Usage: $0 [command]').help();
+
+const argv = yargs.argv;

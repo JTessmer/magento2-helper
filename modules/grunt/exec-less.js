@@ -18,16 +18,16 @@ module.exports = {
 			})
 			.option('all', {
 				alias: 'a',
-				'describe': 'Compile all themes',
-				'default': false
+				describe: 'Compile all themes',
+				default: false
 			})
 			.example('$0 el -a', '=> grunt exec, grunt less [all themes]')
-			.example('$0 el mytheme', '=> grunt exec:mytheme, grunt exec:mytheme');
+			.example('$0 el mytheme', '=> grunt exec:mytheme, grunt less:mytheme');
 
 		if (defaultTheme) {
 			yargs.example('$0 el', '=> grunt exec:'+defaultTheme+', grunt less:'+defaultTheme+' [uses default]');
 		} else {
-			yargs.example('$0 el', '=> grunt exec [no default set]');
+			yargs.example('$0 el', '=> grunt exec, grunt less [no default set]');
 		}
 	},
 

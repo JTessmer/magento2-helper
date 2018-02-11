@@ -1,2 +1,1 @@
-# Incorporate m2build (grunt handling) into app?
 # Include a manual in addition to (or instead of) '--help': https://docs.npmjs.com/files/package.json#man

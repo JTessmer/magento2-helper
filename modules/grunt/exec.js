@@ -18,8 +18,8 @@ module.exports = {
 			})
 			.option('all', {
 				alias: 'a',
-				'describe': 'Exec all themes',
-				'default': false
+				describe: 'Exec all themes',
+				default: false
 			})
 			.example('$0 e -a', '=> grunt exec [all themes]')
 			.example('$0 e mytheme', '=> grunt exec:mytheme');
