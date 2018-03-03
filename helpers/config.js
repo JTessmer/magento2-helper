@@ -8,10 +8,11 @@ const DEFAULT_CONFIG = {
 	defaultVendor:		null,
 	defaultTheme:		null,
 	modules: [
+		'./modules/grunt/setup',
 		'./modules/grunt/exec',
 		'./modules/grunt/less',
 		'./modules/grunt/exec-less',
-		'./modules/grunt/setup'
+		'./modules/grunt/watch',
 	]
 };
 

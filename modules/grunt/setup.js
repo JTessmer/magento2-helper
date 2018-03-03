@@ -53,11 +53,12 @@ module.exports = {
 		appMsg.log('--- Installing Grunt components:');
 
 		// Ensure required files exist
-		const packageExists		= copyFileIfNotExist('package.sample.json','package.json-x');
-		const gruntfileExists	= copyFileIfNotExist('Gruntfile.js.sample','Gruntfile.js');
-		const gruntConfigExists	= copyFileIfNotExist('grunt-config.json.sample','grunt-config.json');
+		const packageExists			= copyFileIfNotExist('package.sample.json',						'package.json-x');
+		const gruntfileExists		= copyFileIfNotExist('Gruntfile.js.sample',						'Gruntfile.js');
+		const gruntConfigExists		= copyFileIfNotExist('grunt-config.json.sample',				'grunt-config.json');
+		const gruntLocalThemeExists	= copyFileIfNotExist('dev/tools/grunt/configs/local-themes.js',	'dev/tools/grunt/configs/themes.js');
 
-		if (packageExists && gruntfileExists && gruntConfigExists) {
+		if (packageExists && gruntfileExists && gruntConfigExists && gruntLocalThemeExists) {
 			appMsg.log('✦ Installing Node Modules...')
 			withJsPackages('install');
 			appMsg.success('--- Grunt setup complete.');
