@@ -14,7 +14,15 @@ const DEFAULT_CONFIG = {
 		'./modules/grunt/exec-less',
 		'./modules/grunt/watch',
 		'./modules/composer/install',
-		'./modules/composer/update'
+		'./modules/composer/update',
+		'./modules/cache/flush',
+		'./modules/cache/refresh'
+	],
+	commonCaches: [
+		'config',
+		'layout',
+		'block_html',
+		'full_page'
 	]
 };
 
@@ -59,14 +67,14 @@ const config = {
 	},
 
 	// Retrieves the data for the given key
-	get: function(key) {
+	get: function(key, joinArray) {
 		if (!key) {
 			throw new Error('get() called without a key!');
 		}
 
 		const config = readConfigData();
 
-		return config[key];
+		return joinArray ? config[key].join(' ') : config[key];
 	},
 
 	// Sets the given key to the supplied value

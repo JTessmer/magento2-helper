@@ -1,0 +1,92 @@
+##### General Utility #####
+
+# Compile Dependency Injection
+di)
+	m2.BINMAGE setup:di:compile
+	m2.BINMAGE cache:flush
+	;;
+
+
+dv | dev)
+	m2.BINMAGE deploy:mode:set developer
+
+u | upg)
+	m2.BINMAGE cache:flush
+	m2.BINMAGE setup:upgrade
+	m2.BINMAGE deploy:mode:set developer
+	;;
+
+th)
+	if [ $# -lt 2 ]; then
+		m2.BINMAGE dev:template-hints
+	else
+		if [ "$2" == "e" ]; then
+			m2.BINMAGE dev:template-hints:enable
+			echo "Hints enabled; flushing cache..."
+			m2.BINMAGE cache:flush config layout block_html full_page
+		elif [ "$2" == "d" ]; then
+			m2.BINMAGE dev:template-hints:disable
+			echo "Hints disabled; flushing cache..."
+			m2.BINMAGE cache:flush config layout block_html full_page
+		fi
+	fi
+
+	# if [ "$2" == "b" ]; then
+	#	m2.BINMAGE dev:template-hints-blocks
+	# fi
+	;;
+
+# "I say we take off and nuke the entire site from orbit. Its the only way to be sure." - Ripley
+n | nuke)
+	m2.gruntsetup --force
+	rm -rf var/cache var/generation var/page_cache var/view_preprocessed var/di
+	composer clear-cache
+	composer install
+	m2.BINMAGE cache:flush
+	m2.BINMAGE setup:upgrade
+	m2.BINMAGE deploy:mode:set developer
+	m2.BINMAGE setup:di:compile
+	grunt exec
+	# m2.BINMAGE setup:static-content:deploy
+	;;
+
+# For when you want a nuke, but not all the collateral damage
+tn | tacticalnuke)
+	rm -rf var/cache var/generation var/page_cache var/view_preprocessed var/di
+	composer clear-cache
+	composer install
+	m2.BINMAGE cache:flush
+	m2.BINMAGE setup:upgrade
+	m2.BINMAGE deploy:mode:set developer
+
+	if [ $# -lt 2 ]; then
+		grunt exec
+		grunt less
+	else
+		grunt exec:$2
+		grunt less:$2
+	fi
+	;;
+
+	##### Deployment #####
+
+	# Generic Theme Deploy
+	d | dep)
+		m2.BINMAGE cache:flush
+		m2.BINMAGE setup:static-content:deploy --theme=$2 -f
+		m2.BINMAGE dev:source-theme:deploy --theme=$2
+		;;
+
+	# Swarming-specific Theme Deploy
+	ds | deps)
+		m2.BINMAGE cache:flush
+		m2.BINMAGE setup:static-content:deploy --theme=Swarming/$2 -f
+		m2.BINMAGE dev:source-theme:deploy --theme=$2
+		;;
+
+	# All Themes Deploy
+	da | depall)
+		m2.BINMAGE cache:flush
+		m2.BINMAGE setup:static-content:deploy -f
+		m2.BINMAGE dev:source-theme:deploy
+		;;
