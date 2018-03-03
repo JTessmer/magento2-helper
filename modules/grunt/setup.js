@@ -4,14 +4,14 @@ const fs = require('fs');
 
 const appMsg = m2Require('./helpers/appMsg');
 const config = m2Require('./helpers/config');
-const { execCommand } = m2Require('./helpers/util');
+const { withJsPackages } = m2Require('./helpers/exec');
 
 // Copies the source file to the destination if destination does not exist
 function copyFileIfNotExist(src, dest) {
 
 	appMsg.log('✦ Checking for '+dest+'...');
 
-    // If the destination file doesn't exist...
+	// If the destination file doesn't exist...
 	if ( !fs.existsSync(dest) ) {
 		appMsg.warn('  ✗ Not found. Copying sample file.');
 
@@ -50,8 +50,6 @@ module.exports = {
 	},
 
 	handler: (argv) => {
-		let jsPackageManager = config.get('jsPackageManager');
-
 		appMsg.log('--- Installing Grunt components:');
 
 		// Ensure required files exist
@@ -61,7 +59,7 @@ module.exports = {
 
 		if (packageExists && gruntfileExists && gruntConfigExists) {
 			appMsg.log('✦ Installing Node Modules...')
-			execCommand(jsPackageManager, 'install');
+			withJsPackages('install');
 			appMsg.success('--- Grunt setup complete.');
 
 		} else {

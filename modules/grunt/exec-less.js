@@ -1,7 +1,7 @@
 'use strict';
 
 const config = m2Require('./helpers/config');
-const { execCommand } = m2Require('./helpers/util');
+const { withGrunt } = m2Require('./helpers/exec');
 
 module.exports = {
 	command: 'exec-less [theme]',
@@ -41,7 +41,7 @@ module.exports = {
 			gruntLess = 'less:' + argv.theme;
 		}
 
-		execCommand('grunt', gruntExec);
-		execCommand('grunt', gruntLess);
+		withGrunt(gruntExec);
+		withGrunt(gruntLess);
 	}
 }

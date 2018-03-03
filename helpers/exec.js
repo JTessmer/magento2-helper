@@ -5,7 +5,7 @@ const config = require('./config');
 const appMsg = require('./appMsg');
 
 // Executes the given command and returns the resulting output
-function execCommand(command, args) {
+function _execCommand(command, args) {
 
 	// Ensure supplied arguments are formatted as an array of strings
 	if (typeof args !== 'object') {
@@ -34,12 +34,22 @@ function execCommand(command, args) {
 	return true;
 }
 
+/*==================================================//
+	We only expose wrappers in order to discourage
+	modules from going too crazy with executing
+	all sorts of random commands.
+//==================================================*/
 module.exports = {
-	execCommand,
+	withGrunt: function(args) {
+		return _execCommand('grunt', args);
+	},
+	withComposer: function(args) {
+		return _execCommand('composer', args);
+	},
 	withMagento: function(args) {
-		return execCommand(config.get('magentoBin'), args);
+		return _execCommand(config.get('magentoBin'), args);
 	},
 	withJsPackages: function(args) {
-		return execCommand(config.get('jsPackageManager'), args);
+		return _execCommand(config.get('jsPackageManager'), args);
 	}
 }

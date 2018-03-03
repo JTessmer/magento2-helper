@@ -50,7 +50,7 @@ function readConfigData() {
 const config = {
 	setDefaults,
 
-    // Checks for the presence of a config file; creates it with defaults if absent
+	// Checks for the presence of a config file; creates it with defaults if absent
 	ensureConfigFileExists: function() {
 		return (fs.existsSync(filePath) ? false : setDefaults());
 	},
@@ -66,7 +66,7 @@ const config = {
 		return config[key];
 	},
 
-    // Sets the given key to the supplied value
+	// Sets the given key to the supplied value
 	set: function(key, value) {
 		if (!key || !value) {
 			throw new Error('set() called with insufficient arguments!');

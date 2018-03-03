@@ -1,1 +1,10 @@
-# Include a manual in addition to (or instead of) '--help': https://docs.npmjs.com/files/package.json#man
+#	Include a manual in addition to (or instead of) '--help':
+	https://docs.npmjs.com/files/package.json#man
+
+#	helpers/config.js -- Load config file at startup, then update get()
+	and/or readConfigData() so that they only make a single disk read
+	of the config file data
+
+#	Add coloring to help commands
+
+#	helpers/appMsg.js -- Consider using 'chalk' library for coloring

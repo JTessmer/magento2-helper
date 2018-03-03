@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-const path	= require('path');
-const fs	= require('fs');
-const yargs	= require('yargs');
-const { withMagento } = require('./helpers/util');
+const path				= require('path');
+const fs				= require('fs');
+const yargs				= require('yargs');
+const { withMagento }	= require('./helpers/exec');
 
 // Helper Utilities
 const appMsg = require('./helpers/appMsg');
