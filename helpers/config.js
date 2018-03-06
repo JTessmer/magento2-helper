@@ -2,7 +2,8 @@
 
 const DEFAULT_CONFIG = {
 	debugMode:			false,
-	magentoBin:			'php bin/magento',
+	magentoCmd:			'php',
+	magentoBin:			'bin/magento',
 	jsPackageManager:	'npm',
 	taskRunner:			'grunt',
 	defaultVendor:		null,

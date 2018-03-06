@@ -17,7 +17,7 @@ config.ensureConfigFileExists();
 // We can ignore this in debug mode
 if (
 	!config.get('debugMode') &&
-	!fs.existsSync( path.join(__dirname, 'bin', 'magento') )
+	!fs.existsSync( path.join(process.cwd(), 'bin', 'magento') )
 ) {
 	appMsg.error('* Magento 2 Helper must be executed from the root directory of your Magento 2 installation');
 	return;

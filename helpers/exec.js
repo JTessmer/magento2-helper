@@ -37,7 +37,7 @@ function _execCommand(command, args) {
 /*==================================================//
 	We only expose wrappers in order to discourage
 	modules from going too crazy with executing
-	all sorts of random commands.
+	all sorts of random system commands.
 //==================================================*/
 module.exports = {
 	withGrunt: function(args) {
@@ -47,7 +47,16 @@ module.exports = {
 		return _execCommand('composer', args);
 	},
 	withMagento: function(args) {
-		return _execCommand(config.get('magentoBin'), args);
+		const mageCommand = config.get('magentoCmd');
+
+		// If Magento is run as normal, we'll inject the binary path as the
+		//	first argument. If it's run with another command (i.e. n98magerun),
+		//	the Magento binary path is not needed.
+		if (mageCommand === 'php') {
+			args.unshift(config.get('magentoBin'));
+		}
+
+		return _execCommand(mageCommand, args);
 	},
 	withJsPackages: function(args) {
 		return _execCommand(config.get('jsPackageManager'), args);
