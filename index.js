@@ -40,10 +40,10 @@ if (commandModules) {
 }
 
 //----- Unhandled Commands -----//
-yargs.command('* [command]', 'Send command to Magento', () => {}, (argv) => {
+yargs.command('*', 'Send command to Magento', () => {}, (argv) => {
 	withMagento(argv._);
 });
 
-yargs.usage('Usage: $0 [command]').help();
+yargs.usage('Usage: $0 <command> [arguments]').help();
 
 const argv = yargs.argv;
