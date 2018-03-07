@@ -1,6 +1,6 @@
 {
   "name": "magento2-helper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Command-line tool meant to simplify and streamline the Magento 2 development process",
   "main": "index.js",
   "repository": "https://github.com/JTessmer/magento2-helper.git",
