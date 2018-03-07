@@ -2,9 +2,10 @@
 
 const config = m2Require('./helpers/config');
 const { withMagento } = m2Require('./helpers/exec');
+const appMsg = m2Require('./helpers/appMsg');
 
 module.exports = {
-	command: 'flush',
+	command: 'flush [caches]',
 	aliases: ['f'],
 	describe: 'Flushes the Magento cache',
 
@@ -22,21 +23,22 @@ module.exports = {
 	},
 
 	handler: (argv) => {
-		console.log('argv._', argv._);
-		console.log('caches', argv.caches);
 
 		// If --all has been specified...
 		if (argv.all) {
+			appMsg.success('Flushing all caches...');
 			withMagento('cache:flush');
 
 		// If specific caches have been specified...
 		} else if (argv.caches) {
+			appMsg.success('Flushing '+argv.caches+'...');
 			withMagento('cache:flush ' + argv.caches);
 
 		// If nothing has been specified...
 		} else {
 			const commonCaches = config.get('commonCaches', true);
 
+			appMsg.success('Flushing common caches...');
 			withMagento('cache:flush ' + commonCaches);
 		}
 
