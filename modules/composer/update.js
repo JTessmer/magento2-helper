@@ -4,7 +4,7 @@ const appMsg = m2Require('./helpers/appMsg');
 const { withComposer } = m2Require('./helpers/exec');
 
 module.exports = {
-	command: 'composer-update',
+	command: 'composer-update [module]',
 	aliases: ['cu'],
 	describe: 'Updates composer resources',
 

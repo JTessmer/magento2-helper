@@ -47,13 +47,19 @@ module.exports = {
 		return _execCommand('composer', args);
 	},
 	withMagento: function(args) {
-		const mageCommand = config.get('magentoCmd');
+		const mageCommand	= config.get('magentoCmd');
+		const mageBin		= config.get('magentoBin');
 
-		// If Magento is run as normal, we'll inject the binary path as the
-		//	first argument. If it's run with another command (i.e. n98magerun),
-		//	the Magento binary path is not needed.
-		if (mageCommand === 'php') {
-			args.unshift(config.get('magentoBin'));
+		// * If Magento is run using 'php', it needs to include the path
+		//   to an executable php file (i.e. bin/magento) as its first argument
+		// * If Magento is run with a 3rd party util (i.e. n98magerun),
+		//   we can use the arguments as provided
+		if ( mageCommand === 'php' ) {
+			if (typeof args === 'object') {
+				args.unshift(mageBin);
+			} else {
+				args = mageBin + ' ' + args;
+			}
 		}
 
 		return _execCommand(mageCommand, args);

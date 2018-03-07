@@ -3,7 +3,7 @@
 const { withComposer, withMagento, withGrunt } = m2Require('./helpers/exec');
 
 module.exports = {
-	command: 'refresh',
+	command: 'refresh [theme]',
 	aliases: ['r'],
 	describe: 'Resets composer & less content; ideal for switching branches',
 
