@@ -21,11 +21,11 @@ module.exports = {
 				default: false
 			})
 			.option('flush-composer', {
-				alias: 'fc',
+				alias: 'f',
 				describe: 'Flush composer\'s cache',
 				default: false
 			})
-			.example('$0 r -fc', '=> flush composer cache and refresh')
+			.example('$0 r -f', '=> flush composer cache and refresh')
 			.example('$0 r -a', '=> refresh composer and all themes')
 			.example('$0 r mytheme', '=> refresh composer and mytheme less files');
 

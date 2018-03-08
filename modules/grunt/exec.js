@@ -21,8 +21,17 @@ module.exports = {
 				describe: 'Exec all themes',
 				default: false
 			})
+			.option('less', {
+				alias: 'l',
+				describe: 'Compile less after exec completes'
+			})
+			.option('watch', {
+				alias: 'w',
+				describe: 'Watch for changes and recompile after exec completes'
+			})
 			.example('$0 e -a', '=> grunt exec [all themes]')
-			.example('$0 e mytheme', '=> grunt exec:mytheme');
+			.example('$0 e mytheme', '=> grunt exec:mytheme')
+            .example('$0 e mytheme -lw', '=> run grunt exec, then less, then continue watching');
 
 		if (defaultTheme) {
 			yargs.example('$0 e', '=> grunt exec:'+defaultTheme+' [uses default]');
@@ -32,13 +41,22 @@ module.exports = {
 	},
 
 	handler: (argv) => {
+		let themeArg = '';
 		let gruntArg = 'exec';
 
 		// If a theme is specified, and --all has not been selected...
 		if (argv.theme && !argv.all) {
-			gruntArg = 'exec:' + argv.theme;
+			themeArg = ':' + argv.theme;
 		}
 
-		withGrunt(gruntArg);
+		withGrunt('exec' + themeArg);
+		if (argv.less) {
+			withGrunt('less' + themeArg);
+		}
+
+		if (argv.watch) {
+			withGrunt('watch' + themeArg);
+		}
+
 	}
 }

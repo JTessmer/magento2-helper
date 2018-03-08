@@ -27,7 +27,7 @@ module.exports = {
 			.example('$0 cu mymodule', '=> update composer module')
 			.example('$0 cu -a', '=> update all composer modules')
 			.example('$0 cu mymodule -f', '=> flush cache, then update module')
-			.example('$0 cu -a -f', '=> flush cache, then update all modules');
+			.example('$0 cu -af', '=> flush cache, then update all modules');
 	},
 
 	handler: (argv) => {

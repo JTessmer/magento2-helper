@@ -68,25 +68,25 @@ tn | tacticalnuke)
 	fi
 	;;
 
-	##### Deployment #####
+##### Deployment #####
 
-	# Generic Theme Deploy
-	d | dep)
-		m2.BINMAGE cache:flush
-		m2.BINMAGE setup:static-content:deploy --theme=$2 -f
-		m2.BINMAGE dev:source-theme:deploy --theme=$2
-		;;
+# Generic Theme Deploy
+d | dep)
+	m2.BINMAGE cache:flush
+	m2.BINMAGE setup:static-content:deploy --theme=$2 -f
+	m2.BINMAGE dev:source-theme:deploy --theme=$2
+	;;
 
-	# Swarming-specific Theme Deploy
-	ds | deps)
-		m2.BINMAGE cache:flush
-		m2.BINMAGE setup:static-content:deploy --theme=Swarming/$2 -f
-		m2.BINMAGE dev:source-theme:deploy --theme=$2
-		;;
+# Swarming-specific Theme Deploy
+ds | deps)
+	m2.BINMAGE cache:flush
+	m2.BINMAGE setup:static-content:deploy --theme=Swarming/$2 -f
+	m2.BINMAGE dev:source-theme:deploy --theme=$2
+	;;
 
-	# All Themes Deploy
-	da | depall)
-		m2.BINMAGE cache:flush
-		m2.BINMAGE setup:static-content:deploy -f
-		m2.BINMAGE dev:source-theme:deploy
-		;;
+# All Themes Deploy
+da | depall)
+	m2.BINMAGE cache:flush
+	m2.BINMAGE setup:static-content:deploy -f
+	m2.BINMAGE dev:source-theme:deploy
+	;;

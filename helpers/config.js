@@ -12,7 +12,6 @@ const DEFAULT_CONFIG = {
 		'./modules/grunt/setup',
 		'./modules/grunt/exec',
 		'./modules/grunt/less',
-		'./modules/grunt/exec-less',
 		'./modules/grunt/watch',
 		'./modules/composer/install',
 		'./modules/composer/update',
