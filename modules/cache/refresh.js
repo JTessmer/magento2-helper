@@ -1,5 +1,6 @@
 'use strict';
 
+const config = m2Require('./helpers/config');
 const { withComposer, withMagento, withGrunt } = m2Require('./helpers/exec');
 
 module.exports = {

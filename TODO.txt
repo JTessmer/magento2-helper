@@ -1,5 +1,3 @@
-#   Write documentation in the README.md file
-
 #	Include a manual in addition to (or instead of) '--help':
 	https://docs.npmjs.com/files/package.json#man
 
