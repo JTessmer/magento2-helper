@@ -16,7 +16,8 @@ const DEFAULT_CONFIG = {
 		'./modules/composer/install',
 		'./modules/composer/update',
 		'./modules/cache/flush',
-		'./modules/cache/refresh'
+		'./modules/cache/refresh',
+		'./modules/general/template-hints'
 	],
 	commonCaches: [
 		'config',
