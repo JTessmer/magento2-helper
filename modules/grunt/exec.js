@@ -42,7 +42,6 @@ module.exports = {
 
 	handler: (argv) => {
 		let themeArg = '';
-		let gruntArg = 'exec';
 
 		// If a theme is specified, and --all has not been selected...
 		if (argv.theme && !argv.all) {

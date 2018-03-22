@@ -14,16 +14,25 @@ const DEFAULT_CONFIG = {
 		'./modules/grunt/less',
 		'./modules/grunt/watch',
 		'./modules/composer/install',
+		'./modules/composer/require',
 		'./modules/composer/update',
 		'./modules/cache/flush',
 		'./modules/cache/refresh',
-		'./modules/general/template-hints'
+		'./modules/general/template-hints',
+		'./modules/general/deploy',
+		'./modules/general/nuke'
 	],
 	commonCaches: [
 		'config',
 		'layout',
 		'block_html',
 		'full_page'
+	],
+	gruntSetupFiles: [
+		'package.sample.json':						'package.json',
+		'Gruntfile.js.sample':						'Gruntfile.js',
+		'grunt-config.json.sample':					'grunt-config.json',
+		'dev/tools/grunt/configs/local-themes.js':	'dev/tools/grunt/configs/themes.js'
 	]
 };
 

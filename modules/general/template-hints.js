@@ -5,7 +5,7 @@ const { withMagento } = m2Require('./helpers/exec');
 const appMsg = m2Require('./helpers/appMsg');
 
 module.exports = {
-	command: 'template-hints [status]',
+	command: 'template-hints <status>',
 	aliases: ['th'],
 	describe: 'Enables or Disables Template Hints',
 
@@ -24,7 +24,7 @@ module.exports = {
 
 		if ( argv.status === 'e' ) {
 			withMagento('dev:template-hints:enable');
-		} elseif ( argv.status === 'd' ) {
+		} else if ( argv.status === 'd' ) {
 			withMagento('dev:template-hints:disable');
 		} else {
 			appMsg.error(

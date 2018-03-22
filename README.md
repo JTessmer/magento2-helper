@@ -1,7 +1,7 @@
 # magento2-helper
 
 ## What is this?
-The Magento 2 Helper (aka "**m2**") is a command-line utility meant to simplify and streamine the Magento 2 development process.
+The Magento 2 Helper (aka "**m2**") is a command-line utility meant to simplify and streamline the Magento 2 development process.
 
 It does this by:
 * Combining commands which are typically used together
@@ -29,6 +29,8 @@ m2 --help [command]
 ```
 
 ## Examples
+
+Please note that these are only a couple examples of what **m2** does -- **m2** contains many other commands which will be documented elsewhere.
 
 
 ### Setting up and running Grunt

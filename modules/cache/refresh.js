@@ -2,6 +2,7 @@
 
 const config = m2Require('./helpers/config');
 const { withComposer, withMagento, withGrunt } = m2Require('./helpers/exec');
+const appMsg = m2Require('./helpers/appMsg');
 
 module.exports = {
 	command: 'refresh [theme]',
@@ -43,10 +44,13 @@ module.exports = {
 		if (argv.flush) {
 			withComposer('clear-cache');
 		}
+		appMsg.success('Installing Composer dependencies...');
 		withComposer('install');
 
 		//----- Magento -----//
+		appMsg.success('Flushing all caches...');
 		withMagento('cache:flush');
+		appMsg.success('Upgrading the database...');
 		withMagento('setup:upgrade');
 		withMagento('deploy:mode:set developer');
 
@@ -60,6 +64,7 @@ module.exports = {
 			gruntLess = 'less:' + argv.theme;
 		}
 
+		appMsg.success('Generating Grunt symlinks...');
 		withGrunt(gruntExec);
 		withGrunt(gruntLess);
 

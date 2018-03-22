@@ -66,5 +66,10 @@ module.exports = {
 	},
 	withJsPackages: function(args) {
 		return _execCommand(config.get('jsPackageManager'), args);
+	},
+
+	// @TODO: This should probably be moved somewhere else
+	removeGenerated: function() {
+		return _execCommand('rm', '-rf var/cache var/generation var/page_cache var/view_preprocessed var/di');
 	}
 }

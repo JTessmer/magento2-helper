@@ -1,7 +1,7 @@
 'use strict';
 
 const config = m2Require('./helpers/config');
-const { withMagento } = m2Require('./helpers/exec');
+const { withMagento, removeGenerated } = m2Require('./helpers/exec');
 const appMsg = m2Require('./helpers/appMsg');
 
 module.exports = {
@@ -20,9 +20,19 @@ module.exports = {
 				describe: 'Flush all cache areas',
 				default: false
 			})
+			.option('var', {
+				alias: 'v',
+				describe: 'Purge generated var folders',
+				default: false
+			})
 	},
 
 	handler: (argv) => {
+
+		if (argv.all || argv.var) {
+			appMsg.success('Purging generated var folders...');
+			removeGenerated();
+		}
 
 		// If --all has been specified...
 		if (argv.all) {
