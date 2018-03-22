@@ -44,11 +44,15 @@ module.exports = {
 		// Ensure required files exist
 		let setupSuccess = true;
 
-		config.get('gruntSetupFiles').forEach( (destination, source) => {
+		for (let source in setupFiles) {
+			let destination = setupFiles[source];
+
+			// If any files are non-existant, fail success and quit
 			if ( !copyFileIfNotExist(source, destination) ) {
 				setupSuccess = false;
+				break;
 			}
-		});
+		}
 
 		if (!setupSuccess) {
 			appMsg.error('+ Grunt Setup files could not be created.');

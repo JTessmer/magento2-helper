@@ -28,12 +28,12 @@ const DEFAULT_CONFIG = {
 		'block_html',
 		'full_page'
 	],
-	gruntSetupFiles: [
+	gruntSetupFiles: {
 		'package.sample.json':						'package.json',
 		'Gruntfile.js.sample':						'Gruntfile.js',
 		'grunt-config.json.sample':					'grunt-config.json',
 		'dev/tools/grunt/configs/local-themes.js':	'dev/tools/grunt/configs/themes.js'
-	]
+	}
 };
 
 const fs = require('fs'),
