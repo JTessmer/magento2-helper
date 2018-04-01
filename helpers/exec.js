@@ -70,6 +70,8 @@ module.exports = {
 
 	// @TODO: This should probably be moved somewhere else
 	removeGenerated: function() {
-		return _execCommand('rm', '-rf var/cache var/generation var/page_cache var/view_preprocessed var/di');
+        const generatedDirs = config.get('generatedDirs', true);
+
+		return _execCommand('rm', '-rf ' + generatedDirs);
 	}
 }

@@ -18,9 +18,13 @@ const DEFAULT_CONFIG = {
 		'./modules/composer/update',
 		'./modules/cache/flush',
 		'./modules/cache/refresh',
+        './modules/general/deploy',
+        './modules/general/deploymode',
+        './modules/general/di',
+        './modules/general/reindex',
 		'./modules/general/template-hints',
-		'./modules/general/deploy',
-		'./modules/general/nuke'
+        './modules/general/upgrade',
+        './modules/general/nuke'
 	],
 	commonCaches: [
 		'config',
@@ -28,6 +32,13 @@ const DEFAULT_CONFIG = {
 		'block_html',
 		'full_page'
 	],
+    generatedDirs: [
+        'var/cache',
+        'var/generation',
+        'var/page_cache',
+        'var/view_preprocessed',
+        'var/di'
+    ],
 	gruntSetupFiles: {
 		'package.sample.json':						'package.json',
 		'Gruntfile.js.sample':						'Gruntfile.js',
