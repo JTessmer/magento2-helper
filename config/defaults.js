@@ -20,7 +20,7 @@ module.exports = {
 		'./modules/cache/refresh',
         './modules/general/deploy',
         './modules/general/deploymode',
-        './modules/general/di',
+        './modules/general/dicompile',
         './modules/general/reindex',
 		'./modules/general/template-hints',
         './modules/general/upgrade',

@@ -4,7 +4,8 @@ const { withMagento } = m2Require('./helpers/exec');
 const appMsg = m2Require('./helpers/appMsg');
 
 module.exports = {
-	command: 'di',
+	command: 'di-compile',
+	aliases: ['di'],
 	describe: 'Generates DI configuration',
 
 	builder: (yargs) => {

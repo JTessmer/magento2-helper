@@ -7,8 +7,7 @@ const appMsg = m2Require('./helpers/appMsg');
 module.exports = {
 	command: 'nuke [theme]',
 	aliases: ['n'],
-	describe: '"Take off and nuke the entire site from orbit...\n'+
-		'it\'s the only way to be sure."\n\n'+
+	describe: '"Take off and nuke the entire site from orbit... it\'s the only way to be sure."\n\n'+
 		'Flushes and regenerates Grunt, Composer, and Magento data & themes',
 
 	builder: (yargs) => {

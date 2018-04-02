@@ -3,7 +3,8 @@
 const { withMagento } = m2Require('./helpers/exec');
 
 module.exports = {
-	command: 'i',
+	command: 'reindex',
+	aliases: ['i'],
 	describe: 'Reindexes Data',
 
 	builder: (yargs) => {
