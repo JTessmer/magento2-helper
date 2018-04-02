@@ -12,8 +12,8 @@ module.exports = {
 	},
 
 	handler: (argv) => {
-        withMagento('setup:di:compile');
-        appMsg.log('Flushing all caches...');
-        withMagento('cache:flush');
+		withMagento('setup:di:compile');
+		appMsg.log('Flushing all caches...');
+		withMagento('cache:flush');
 	}
 }

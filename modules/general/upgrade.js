@@ -11,23 +11,23 @@ module.exports = {
 	builder: (yargs) => {
 
 		yargs
-            .option('keepmode', {
-                alias: 'k',
-                describe: 'Keep the current mode; do not switch to developer',
-                default: false
-            })
+			.option('keepmode', {
+				alias: 'k',
+				describe: 'Keep the current mode; do not switch to developer',
+				default: false
+			})
 			.example('$0 u', '=> run setup:upgrade and set mode to developer')
 			.example('$0 u p', '=> run setup:upgrade and preserve mode');
 
 	},
 
 	handler: (argv) => {
-        appMsg.log('Flushing all caches...');
-        withMagento('cache:flush');
-        withMagento('setup:upgrade');
+		appMsg.log('Flushing all caches...');
+		withMagento('cache:flush');
+		withMagento('setup:upgrade');
 
-        if (!argv.keepmode) {
-            withMagento('deploy:mode:set', 'developer');
-        }
+		if (!argv.keepmode) {
+			withMagento('deploy:mode:set', 'developer');
+		}
 	}
 }

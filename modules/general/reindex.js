@@ -11,6 +11,6 @@ module.exports = {
 	},
 
 	handler: (argv) => {
-        withMagento('indexer:reindex');
+		withMagento('indexer:reindex');
 	}
 }
