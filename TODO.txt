@@ -1,22 +1,11 @@
-#	Include a manual in addition to (or instead of) '--help':
-	https://docs.npmjs.com/files/package.json#man
-
-#	helpers/config.js -- Load config file at startup, then update get()
-	and/or readConfigData() so that they only make a single disk read
-	of the config file data
-
-#	Add commands to set user configuration; defaults to current working
-	directory; '-g' for global
+#	Add further documentation to github page
 
 #	Add coloring to help commands
 
 #	helpers/appMsg.js -- Consider using 'chalk' library for coloring
 
-#	Look for a .m2h-config file in the current working directory; allow
-	it to set a local override of configuration settings (i.e. default theme)
-
 #	Add toggle functionality for Template Hints enable/disable
 
 #	Add instructions to README on how to add a module extension
 
-#	Create ~/m2helper; move config file there; allow users to add modules to this folder
+#	Allow users to add custom modules to ~/m2helper

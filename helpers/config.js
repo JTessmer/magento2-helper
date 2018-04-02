@@ -1,131 +1,94 @@
 'use strict';
 
-const DEFAULT_CONFIG = {
-	debugMode:			false,
-	magentoCmd:			'php',
-	magentoBin:			'bin/magento',
-	jsPackageManager:	'npm',
-	taskRunner:			'grunt',
-	defaultVendor:		null,
-	defaultTheme:		null,
-	modules: [
-		'./modules/grunt/setup',
-		'./modules/grunt/exec',
-		'./modules/grunt/less',
-		'./modules/grunt/watch',
-		'./modules/composer/install',
-		'./modules/composer/require',
-		'./modules/composer/update',
-		'./modules/cache/flush',
-		'./modules/cache/refresh',
-        './modules/general/deploy',
-        './modules/general/deploymode',
-        './modules/general/di',
-        './modules/general/reindex',
-		'./modules/general/template-hints',
-        './modules/general/upgrade',
-        './modules/general/nuke'
-	],
-	commonCaches: [
-		'config',
-		'layout',
-		'block_html',
-		'full_page'
-	],
-    generatedDirs: [
-        'var/cache',
-        'var/generation',
-        'var/page_cache',
-        'var/view_preprocessed',
-        'var/di'
-    ],
-	gruntSetupFiles: {
-		'package.sample.json':						'package.json',
-		'Gruntfile.js.sample':						'Gruntfile.js',
-		'grunt-config.json.sample':					'grunt-config.json',
-		'dev/tools/grunt/configs/local-themes.js':	'dev/tools/grunt/configs/themes.js'
-	}
+const fs = require('fs');
+const path = require('path');
+
+const SCOPE_GLOBAL = 'global';
+const SCOPE_LOCAL = 'local';
+
+// Current Configuration Store
+let _configuration = {};
+
+// Determine config file paths
+const _configPath = {
+	[SCOPE_GLOBAL]: path.join( (process.env.HOME || process.env.USERPROFILE), 'm2helper', '.m2helper' ),
+	[SCOPE_LOCAL]: path.join(process.cwd(), '.m2helper')
 };
 
-const fs = require('fs'),
-	path = require('path');
 
-const filePath = path.join( (process.env.HOME || process.env.USERPROFILE), '.m2helper' );
-
-
-// Writes the given data to the config file
-function writeConfigData(data = {}) {
-	fs.writeFileSync(filePath, JSON.stringify(data, null, '\t') );
-
-	return data;
+// Checks whether the value is a simple (writable) type
+function _valueIsWritable(key) {
+	return !(typeof _configuration[key] === 'object');
 }
 
-// Resets all configurations to default
-function setDefaults() {
-	writeConfigData(DEFAULT_CONFIG);
-
-	return true;
-}
-
-// Loads the config file data as a JS object;
-function readConfigData() {
-
-	// If the file doesn't exist, we'll create it
-	if ( !fs.existsSync(filePath) ) {
-		setDefaults();
+function _loadConfigAsObject(configFilePath) {
+	if (!fs.existsSync(configFilePath)) {
+		return {};
 	}
+	return JSON.parse(fs.readFileSync(configFilePath) || '{}');
+}
 
-	return JSON.parse(fs.readFileSync(filePath) || '{}');
+function _writeConfigData(scope, key, value) {
+	const configPath = _configPath[scope];
+
+	const currentScopeData = _loadConfigAsObject(configPath);
+
+	// Merge the new values provided with any existing data
+	const scopeData = {
+		...currentScopeData,
+		[key]: value
+	};
+
+	// Write to scope config file
+	fs.writeFileSync( configPath, JSON.stringify(scopeData, null, '\t') );
+
+	return scopeData;
+}
+
+function _resetConfigData(scope, key) {
+	const configPath = _configPath[scope];
+
+	const currentScopeData = _loadConfigAsObject(configPath);
+
+	const scopeData = {
+		...currentScopeData
+	};
+
+	delete scopeData[key];
+
+	// Write to scope config data
+	fs.writeFileSync( configPath, JSON.stringify(scopeData, null, '\t') );
+
+	return scopeData;
 }
 
 
-const config = {
-	setDefaults,
+module.exports = {
+	populate: function() {
+		const defaultConfig = require('../config/defaults');
+		const globalConfig = _loadConfigAsObject(_configPath.global);
+		const localConfig = _loadConfigAsObject(_configPath.local);
 
-	// Checks for the presence of a config file; creates it with defaults if absent
-	ensureConfigFileExists: function() {
-		return (fs.existsSync(filePath) ? false : setDefaults());
+		_configuration = {
+			...defaultConfig,
+			...globalConfig,
+			...localConfig
+		};
 	},
 
-	// Retrieves the data for the given key
+	// Retrieves the data for the given key, or all config data if specified
 	get: function(key, joinArray) {
-		if (!key) {
-			throw new Error('get() called without a key!');
+		if (key === 'all') {
+			return _configuration;
 		}
-
-		const config = readConfigData();
-
-		return joinArray ? config[key].join(' ') : config[key];
+		return joinArray ? _configuration[key].join(' ') : _configuration[key];
 	},
 
-	// Sets the given key to the supplied value
-	set: function(key, value) {
-		if (!key || !value) {
-			throw new Error('set() called with insufficient arguments!');
-		}
-
-		const config = readConfigData();
-
-		return writeConfigData({
-			...config,
-			[key]: value
-		});
+	set: function(key, value, setGlobal) {
+		return _writeConfigData((setGlobal ? SCOPE_GLOBAL : SCOPE_LOCAL), key, value);
 	},
 
-	// Resets the given key to its default value
-	reset: function(key) {
-		if (!key) {
-			throw new Error('reset() called without a key!');
-		}
-
-		const config = readConfigData();
-
-		return writeConfigData({
-			...config,
-			[key]: DEFAULT_CONFIG[key]
-		});
+	reset: function(key, resetGlobal) {
+		return _resetConfigData((resetGlobal ? SCOPE_GLOBAL : SCOPE_LOCAL), key);
 	}
 };
-
-
-module.exports = config;

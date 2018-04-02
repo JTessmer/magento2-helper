@@ -7,11 +7,18 @@ const yargs				= require('yargs');
 const { withMagento }	= require('./helpers/exec');
 
 // Helper Utilities
-const appMsg = require('./helpers/appMsg');
-const config = require('./helpers/config');
+const appMsg			= require('./helpers/appMsg');
+const config			= require('./helpers/config');
+
+// Create the m2helper folder if it doesn't exist
+const m2helperHome		= path.join( (process.env.HOME || process.env.USERPROFILE), 'm2helper' );
+
+if ( !fs.existsSync(m2helperHome) ) {
+	fs.mkdirSync(m2helperHome);
+}
 
 // Create config file with defaults if none exists
-config.ensureConfigFileExists();
+config.populate();
 
 // Ensure the user is in their M2 Root directory
 // We can ignore this in debug mode
