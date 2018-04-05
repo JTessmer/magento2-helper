@@ -66,12 +66,5 @@ module.exports = {
 	},
 	withJsPackages: function(args) {
 		return _execCommand(config.get('jsPackageManager'), args);
-	},
-
-	// @TODO: This should probably be moved somewhere else
-	removeGenerated: function() {
-        const generatedDirs = config.get('generatedDirs', true);
-
-		return _execCommand('rm', '-rf ' + generatedDirs);
 	}
 }

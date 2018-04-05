@@ -27,7 +27,7 @@ module.exports = {
 		withMagento('setup:upgrade');
 
 		if (!argv.keepmode) {
-			withMagento('deploy:mode:set', 'developer');
+			withMagento('deploy:mode:set developer');
 		}
 	}
 }

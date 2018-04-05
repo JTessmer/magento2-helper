@@ -1,8 +1,9 @@
 'use strict';
 
 const config = m2Require('./helpers/config');
-const { withMagento, withComposer, withGrunt, removeGenerated } = m2Require('./helpers/exec');
 const appMsg = m2Require('./helpers/appMsg');
+const { withMagento, withComposer, withGrunt } = m2Require('./helpers/exec');
+const { copyFileIfNotExist, removeGenerated } = m2Require('./helpers/files');
 
 module.exports = {
 	command: 'nuke [theme]',
@@ -41,6 +42,7 @@ module.exports = {
 		appMsg.warn('--- Ensuring NPM packages are installed...')
 
 		// Ensure required files exist
+        const setupFiles = config.get('gruntSetupFiles');
 		let setupSuccess = true;
 
 		for (let source in setupFiles) {
