@@ -9,3 +9,5 @@
 #	Add instructions to README on how to add a module extension
 
 #	Allow users to add custom modules to ~/m2helper
+
+#	Add a special output message style for info type messages; update all modules to use it

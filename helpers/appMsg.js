@@ -57,6 +57,19 @@ module.exports = {
 	},
 
 	// Specific preconfigured message types
+	command: function(message) {
+		let finalMessage = '\n===== ' + message + ' =====';
+		while(finalMessage.length - 100) {
+			finalMessage += '=';
+		}
+		finalMessage += '\n';
+
+		this.log(finalMessage, {
+			fg: 'magenta',
+			v: 'bright'
+		});
+	},
+
 	success: function(message) {
 		this.log(message, {
 			fg: 'green'

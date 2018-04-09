@@ -1,6 +1,7 @@
 'use strict';
 
-const config = m2Require('./helpers/exec');
+const { _execCommand } = m2Require('./helpers/exec');
+const config = m2Require('./helpers/config');
 
 // Copies the source file to the destination if destination does not exist
 function copyFileIfNotExist(src, dest) {
@@ -35,13 +36,15 @@ function copyFileIfNotExist(src, dest) {
 
 // Removes generated files
 function removeGenerated() {
-    const generatedDirs = config.get('generatedDirs', true);
+	const generatedDirs = config.get('generatedDirs', true);
 
-    return _execCommand('rm', '-rf ' + generatedDirs);
+	// @TODO: Refactor to not require a private method belonging to /helpers/exec
+	//		(and remove said method from exports in /helpers/exec)
+	return _execCommand('rm', '-rf ' + generatedDirs);
 }
 
 
 module.exports = {
-    copyFileIfNotExist,
-    removeGenerated
+	copyFileIfNotExist,
+	removeGenerated
 };

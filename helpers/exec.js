@@ -12,6 +12,8 @@ function _execCommand(command, args) {
 		args = args.toString().split(' ');
 	}
 
+	appMsg.command('Command: "' + command + ' ' + args.join(' ') + '"');
+
 	const result = spawnSync(command, args, {
 		stdio: 'inherit'
 	});
@@ -40,6 +42,7 @@ function _execCommand(command, args) {
 	all sorts of random system commands.
 //==================================================*/
 module.exports = {
+	_execCommand,
 	withGrunt: function(args) {
 		return _execCommand('grunt', args);
 	},

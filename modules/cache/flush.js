@@ -1,7 +1,8 @@
 'use strict';
 
 const config = m2Require('./helpers/config');
-const { withMagento, removeGenerated } = m2Require('./helpers/exec');
+const { withMagento } = m2Require('./helpers/exec');
+const { removeGenerated } = m2Require('./helpers/files');
 const appMsg = m2Require('./helpers/appMsg');
 
 module.exports = {
