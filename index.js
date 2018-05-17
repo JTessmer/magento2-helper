@@ -46,6 +46,15 @@ if (commandModules) {
 	});
 }
 
+const customModules = config.get('customModules');
+// Load custom modules
+if (customModules) {
+	customModules.forEach( (module) => {
+		const modulePath = path.join( (process.env.HOME || process.env.USERPROFILE), '.m2helper', 'modules', module );
+		yargs.command( require(modulePath) );
+	});
+}
+
 //----- Unhandled Commands -----//
 yargs.command('*', 'Send command to Magento', () => {}, (argv) => {
 	withMagento(argv._);

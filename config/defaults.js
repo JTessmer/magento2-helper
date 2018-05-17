@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = {
-	debugMode:			false,
-	magentoCmd:			'php',
-	magentoBin:			'bin/magento',
+	debugMode:		false,
+	verboseMode:		true,
+	magentoCmd:		'php',
+	magentoBin:		'bin/magento',
 	jsPackageManager:	'npm',
-	taskRunner:			'grunt',
+	taskRunner:		'grunt',
 	defaultVendor:		null,
 	defaultTheme:		null,
 	modules: [
@@ -18,14 +19,16 @@ module.exports = {
 		'./modules/composer/update',
 		'./modules/cache/flush',
 		'./modules/cache/refresh',
-        './modules/general/deploy',
-        './modules/general/deploymode',
-        './modules/general/dicompile',
-        './modules/general/reindex',
+		'./modules/general/deploy',
+		'./modules/general/deploymode',
+		'./modules/general/dicompile',
+		'./modules/general/reindex',
 		'./modules/general/template-hints',
-        './modules/general/upgrade',
-        './modules/general/nuke',
+		'./modules/general/upgrade',
+		'./modules/general/nuke',
 		'./modules/core/config'
+	],
+	customModules: [
 	],
 	commonCaches: [
 		'config',
@@ -33,13 +36,15 @@ module.exports = {
 		'block_html',
 		'full_page'
 	],
-    generatedDirs: [
-        'var/cache',
-        'var/generation',
-        'var/page_cache',
-        'var/view_preprocessed',
-        'var/di'
-    ],
+	generatedDirs: [
+		'var/cache',
+		'var/generation',
+		'var/page_cache',
+		'var/view_preprocessed',
+		'var/di',
+        'generated/code',
+        'pub/static/frontend/*'
+	],
 	gruntSetupFiles: {
 		'package.sample.json':						'package.json',
 		'Gruntfile.js.sample':						'Gruntfile.js',

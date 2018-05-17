@@ -12,7 +12,10 @@ function _execCommand(command, args) {
 		args = args.toString().split(' ');
 	}
 
-	appMsg.command('Command: "' + command + ' ' + args.join(' ') + '"');
+	// Show all executed commands in verbose mode
+	if (config.get('verboseMode')) {
+		appMsg.command('Command: "' + command + ' ' + args.join(' ') + '"');
+	}
 
 	const result = spawnSync(command, args, {
 		stdio: 'inherit'

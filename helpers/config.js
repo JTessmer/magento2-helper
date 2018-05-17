@@ -11,7 +11,7 @@ let _configuration = {};
 
 // Determine config file paths
 const _configPath = {
-	[SCOPE_GLOBAL]: path.join( (process.env.HOME || process.env.USERPROFILE), 'm2helper', '.m2helper' ),
+	[SCOPE_GLOBAL]: path.join( (process.env.HOME || process.env.USERPROFILE), '.m2helper', '.m2helper' ),
 	[SCOPE_LOCAL]: path.join(process.cwd(), '.m2helper')
 };
 
