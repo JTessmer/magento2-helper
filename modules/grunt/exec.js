@@ -1,7 +1,8 @@
 'use strict';
 
 const config = m2Require('./helpers/config');
-const { withGrunt } = m2Require('./helpers/exec');
+const appMsg = m2Require('./helpers/appMsg');
+const { withGrunt, withMagento } = m2Require('./helpers/exec');
 
 module.exports = {
 	command: 'exec [theme]',
@@ -29,6 +30,10 @@ module.exports = {
 				alias: 'w',
 				describe: 'Watch for changes and recompile after exec completes'
 			})
+			.option('flush', {
+				alias: 'f',
+				describe: 'Perform a flush of commom caches after exec completes'
+			})
 			.example('$0 e -a', '=> grunt exec [all themes]')
 			.example('$0 e mytheme', '=> grunt exec:mytheme')
             .example('$0 e mytheme -lw', '=> run grunt exec, then less, then continue watching');
@@ -51,6 +56,15 @@ module.exports = {
 		withGrunt('exec' + themeArg);
 		if (argv.less) {
 			withGrunt('less' + themeArg);
+		}
+
+		if (argv.flush) {
+			const commonCaches = config.get('commonCaches', true);
+
+			appMsg.success('Flushing common caches...');
+			withMagento('cache:flush ' + commonCaches);
+
+			appMsg.highlight('Caches flushed', true);
 		}
 
 		if (argv.watch) {

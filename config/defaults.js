@@ -1,12 +1,12 @@
 'use strict';
 
 module.exports = {
-	debugMode:		false,
+	debugMode:			false,
 	verboseMode:		true,
-	magentoCmd:		'php',
-	magentoBin:		'bin/magento',
+	magentoCmd:			'php',
+	magentoBin:			'bin/magento',
 	jsPackageManager:	'npm',
-	taskRunner:		'grunt',
+	taskRunner:			'grunt',
 	defaultVendor:		null,
 	defaultTheme:		null,
 	modules: [
@@ -42,8 +42,8 @@ module.exports = {
 		'var/page_cache',
 		'var/view_preprocessed',
 		'var/di',
-        'generated/code',
-        'pub/static/frontend/*'
+		'generated/code',
+		'pub/static/frontend'
 	],
 	gruntSetupFiles: {
 		'package.sample.json':						'package.json',

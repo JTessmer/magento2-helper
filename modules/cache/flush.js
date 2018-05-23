@@ -53,8 +53,7 @@ module.exports = {
 			withMagento('cache:flush ' + commonCaches);
 		}
 
-        const finishedTime = new Date().toISOString().replace(/.*T/, '').replace(/\..+/, '');
-        appMsg.log('Caches flushed at ' + finishedTime, { fg: 'cyan', v: 'bright' });
+		appMsg.highlight('Caches flushed', true);
 
 	}
 }

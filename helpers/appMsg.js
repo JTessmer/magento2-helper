@@ -34,6 +34,18 @@ const logStyle = {
 	}
 };
 
+function prependTimestamp(message) {
+	const now = new Date();
+	const isPM = now.getHours() > 12;
+	const hours = isPM ? now.getHours() - 12 : now.getHours();
+	const minutes = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+	const seconds = now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
+
+	const formattedTime = (hours + ':' + minutes + ':' + seconds + ' ' + (isPM ? 'PM':'AM') );
+
+	return formattedTime + ' :: ' + message;
+}
+
 module.exports = {
 	// General, configurable message
 	log: function(message, options) {
@@ -45,6 +57,11 @@ module.exports = {
 				fg: logStyle.foreground[options.fg],
 				bg: logStyle.background[options.bg]
 			};
+
+			// Add timestamp, if specified
+			if (options.t) {
+				message = prependTimestamp(message);
+			}
 		}
 
 		console.log(
@@ -59,7 +76,7 @@ module.exports = {
 	// Specific preconfigured message types
 	command: function(message) {
 		let finalMessage = '\n===== ' + message + ' =====';
-		while(finalMessage.length - 100) {
+		while(finalMessage.length < 100) {
 			finalMessage += '=';
 		}
 		finalMessage += '\n';
@@ -70,21 +87,32 @@ module.exports = {
 		});
 	},
 
-	success: function(message) {
+	highlight: function(message, timestamp) {
 		this.log(message, {
-			fg: 'green'
+			fg: 'cyan',
+			v: 'bright',
+			t: timestamp
 		});
 	},
 
-	warn: function(message) {
+	success: function(message, timestamp) {
 		this.log(message, {
-			fg: 'yellow'
+			fg: 'green',
+			t: timestamp
+		});
+	},
+
+	warn: function(message, timestamp) {
+		this.log(message, {
+			fg: 'yellow',
+			t: timestamp
 		})
 	},
 
-	error: function(message) {
+	error: function(message, timestamp) {
 		this.log(message, {
-			fg: 'red'
+			fg: 'red',
+			t: timestamp
 		});
 	}
 
