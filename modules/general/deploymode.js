@@ -20,7 +20,7 @@ module.exports = {
 				default: false
 			})
 			.option('prod', {
-				alias: 'a',
+				alias: 'p',
 				describe: 'Apply Production mode',
 				default: false
 			})
