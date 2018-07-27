@@ -3,9 +3,11 @@
 const { spawnSync } = require('child_process');
 const config = require('./config');
 const appMsg = require('./appMsg');
+const syncExec = require('child_process').exec;
+const asyncExec = require('util').promisify( require('child_process').exec );
 
 // Executes the given command and returns the resulting output
-function _execCommand(command, args) {
+function _execCommand(command, args = '') {
 
 	// Ensure supplied arguments are formatted as an array of strings
 	if (typeof args !== 'object') {
@@ -45,6 +47,8 @@ function _execCommand(command, args) {
 	all sorts of random system commands.
 //==================================================*/
 module.exports = {
+	sync: syncExec,
+	async: asyncExec,
 	_execCommand,
 	withGrunt: function(args) {
 		return _execCommand('grunt', args);

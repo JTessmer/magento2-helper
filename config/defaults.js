@@ -7,6 +7,7 @@ module.exports = {
 	magentoBin:			'bin/magento',
 	jsPackageManager:	'npm',
 	taskRunner:			'grunt',
+	fileEditor:			'open',
 	defaultVendor:		null,
 	defaultTheme:		null,
 	modules: [
@@ -26,7 +27,8 @@ module.exports = {
 		'./modules/general/template-hints',
 		'./modules/general/upgrade',
 		'./modules/general/nuke',
-		'./modules/core/config'
+		'./modules/core/config',
+		'./modules/system/open'
 	],
 	customModules: [
 	],

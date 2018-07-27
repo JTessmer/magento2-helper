@@ -2,6 +2,7 @@
 
 const config = m2Require('./helpers/config');
 const { withComposer, withMagento, withGrunt } = m2Require('./helpers/exec');
+const { removeGenerated } = m2Require('./helpers/files');
 const appMsg = m2Require('./helpers/appMsg');
 
 module.exports = {
@@ -48,6 +49,8 @@ module.exports = {
 		withComposer('install');
 
 		//----- Magento -----//
+		appMsg.success('Purging generated var folders...');
+		removeGenerated();
 		appMsg.success('Flushing all caches...');
 		withMagento('cache:flush');
 		appMsg.success('Upgrading the database...');
