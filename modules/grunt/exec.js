@@ -68,7 +68,7 @@ module.exports = {
 		}
 
 		if (argv.watch) {
-			withGrunt('watch' + themeArg);
+			withGrunt('watch');
 		}
 
 	}

@@ -13,31 +13,15 @@ module.exports = {
 
 		yargs
 			.positional('theme', {
-				describe: 'A specific theme to wach changes for',
-				default: defaultTheme
+				describe: 'A specific theme to watch changes for'
 			})
-			.option('all', {
-				alias: 'a',
-				describe: 'Watch all themes',
-				default: false
-			})
-			.example('$0 w -a', '=> grunt watch [all themes]')
+			.example('$0 w', '=> grunt watch [all themes]')
 			.example('$0 w mytheme', '=> grunt watch:mytheme');
-
-		if (defaultTheme) {
-			yargs.example('$0 w', '=> grunt watch:'+defaultTheme+' [uses default]');
-		} else {
-			yargs.example('$0 w', '=> grunt watch [no default set]');
-		}
 	},
 
 	handler: (argv) => {
-		let gruntArg = 'watch';
-
-		// If a theme is specified, and --all has not been selected...
-		if (argv.theme && !argv.all) {
-			gruntArg = 'watch:' + argv.theme;
-		}
+		const theme = argv.theme;
+		const gruntArg = theme ? 'watch:'+theme : 'watch';
 
 		withGrunt(gruntArg);
 	}

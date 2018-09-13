@@ -2,6 +2,7 @@
 
 const config = m2Require('./helpers/config');
 const { withMagento } = m2Require('./helpers/exec');
+const { removeGenerated } = m2Require('./helpers/files');
 const appMsg = m2Require('./helpers/appMsg');
 
 module.exports = {
@@ -42,15 +43,16 @@ module.exports = {
 
 	handler: (argv) => {
 
-        let themeArg = '';
+		let themeArg = '';
 
-        if (argv.vendor && argv.theme && !argv.all) {
-            themeArg = ' --theme=' + argv.vendor + '/' + argv.theme;
-        }
+		if (argv.vendor && argv.theme && !argv.all) {
+			themeArg = ' --theme=' + argv.vendor + '/' + argv.theme;
+		}
 
-        withMagento('cache:flush');
-        withMagento('setup:static-content:deploy' + themeArg + (argv.force ? ' -f' : '') );
-        withMagento('dev:source-theme:deploy' + themeArg);
+		removeGenerated();
+		withMagento('cache:flush');
+		withMagento('setup:static-content:deploy' + themeArg + (argv.force ? ' -f' : '') );
+		withMagento('dev:source-theme:deploy' + themeArg);
 
 	}
 }
